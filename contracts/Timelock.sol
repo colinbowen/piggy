@@ -9,6 +9,7 @@ contract Timelock {
     AggregatorInterface internal priceFeed;
 
     address payable public beneficiary;
+    bool public locked;
     uint256 public releaseTime;
     int256 public currentPrice;
     address public owner;
@@ -16,6 +17,7 @@ contract Timelock {
     constructor(address _aggregator) public {
         priceFeed = AggregatorInterface(_aggregator);
         owner = msg.sender;
+        locked = false;
     }
 
     function lock(uint256 _releaseTime) public {
@@ -25,6 +27,7 @@ contract Timelock {
         );
         require(address(this).balance > 0, "Must have a balance");
         releaseTime = _releaseTime;
+        locked = true;
     }
 
     function deposit() external payable {
@@ -35,6 +38,15 @@ contract Timelock {
     function release() public {
         require(block.timestamp >= releaseTime);
         payable(beneficiary).transfer(address(this).balance);
+        locked = false;
+    }
+
+    function lockStatus() public view returns (bool) {
+        return locked;
+    }
+
+    function getReleaseTime() public view returns (uint256) {
+        return releaseTime;
     }
 
     /**
