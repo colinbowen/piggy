@@ -60,16 +60,35 @@ class App extends Component {
     this.setState({ balance: balance });
   }
 
-  lockContract = async () => {
+  lockContractDay = async () => {
     const { contract } = this.state;
-    const result = await contract.methods.lock("1695780490").call();
+    console.log(moment().add(1, 'days').unix())
+    const unixTimestamp = moment().add(1, 'days').unix()
+    const result = await contract.methods.lock(unixTimestamp).call();
+
+    console.log(result);
+  }
+
+  lockContractWeek = async () => {
+    const { contract } = this.state;
+    console.log(moment().add(1, 'weeks').unix())
+    const unixTimestamp = moment().add(1, 'weeks').unix()
+    const result = await contract.methods.lock(unixTimestamp).call();
+
+    console.log(result);
+  }
+
+  lockContractMonth = async () => {
+    const { contract } = this.state;
+    console.log(moment().add(1, 'months').unix())
+    const unixTimestamp = moment().add(1, 'months').unix()
+    const result = await contract.methods.lock(unixTimestamp).call();
 
     console.log(result);
   }
 
   releaseContract = async () => {
     const { contract } = this.state;
-
     const result = await contract.methods.release().call();
 
     console.log(result);
@@ -111,13 +130,13 @@ class App extends Component {
 
 
   updatePrice = async () => {
-    // const latestPrice = await contract.methods.getLatestPrice().call();
+    const { contract } = this.state;
 
-    // console.log(latestPrice);
+    const latestPrice = await contract.methods.getLatestPrice().call();
+    console.log(latestPrice);
 
-    // const latestPriceTimestamp = await contract.methods.getLatestPriceTimestamp().call();
-
-    // console.log(latestPriceTimestamp);
+    const latestPriceTimestamp = await contract.methods.getLatestPriceTimestamp().call();
+    console.log(latestPriceTimestamp);
 
   }
 
@@ -126,14 +145,6 @@ class App extends Component {
 
     console.log(contract);
 
-    // Stores a given value, 5 by default.
-    // const response = await contract.methods.getLatestPrice().call();
-    // await contract.methods.set(10).send({ from: accounts[0] });
-    // Get the value from the contract to prove it worked.
-    // const response = await contract.methods.get().call();
-
-    // Update state with the result.
-    // this.setState({ storageValue: response });
   };
 
   render() {
@@ -160,25 +171,25 @@ class App extends Component {
           <Button onClick={this.updatePrice} variant="info" size="lg" block>Get Latest Ether Price</Button>
           <br></br>
           {this.state.locked ? <p>Locked Until: {this.state.releaseTime}</p>
-            :<>
-            <ButtonGroup>
-            <Button onClick={this.lockContract} variant="secondary" size="lg">Lock for 1 day</Button>
-            <Button onClick={this.lockContract} variant="warning" size="lg">Lock for 1 week</Button>
-            <Button onClick={this.lockContract} variant="danger" size="lg">Lock for 1 month</Button>
-            </ButtonGroup>
+            : <>
+              <ButtonGroup>
+                <Button onClick={this.lockContractDay} variant="secondary" size="lg">Lock for 1 day</Button>
+                <Button onClick={this.lockContractWeek} variant="warning" size="lg">Lock for 1 week</Button>
+                <Button onClick={this.lockContractMonth} variant="danger" size="lg">Lock for 1 month</Button>
+              </ButtonGroup>
             </>
-              }
-              <br></br>
-              <br></br>
+          }
+          <br></br>
+          <br></br>
 
-              <Button onClick={this.releaseContract} variant="success" size="lg" block>Release Funds</Button>
-              <Button onClick={this.getBalance} variant="info" size="lg" block>Get Balance of PiggyBank</Button>
-              <Button onClick={this.getReleaseTime} variant="info" size="lg" block>Get Release Time of PiggyBank</Button>
-              <Button onClick={this.getLockStatus} variant="info" size="lg" block>Get Lock Status of PiggyBank</Button>
+          <Button onClick={this.releaseContract} variant="success" size="lg" block>Release Funds</Button>
+          <Button onClick={this.getBalance} variant="info" size="lg" block>Get Balance of PiggyBank</Button>
+          <Button onClick={this.getReleaseTime} variant="info" size="lg" block>Get Release Time of PiggyBank</Button>
+          <Button onClick={this.getLockStatus} variant="info" size="lg" block>Get Lock Status of PiggyBank</Button>
         </Container>
 
-            <br></br>
-            <br></br>
+        <br></br>
+        <br></br>
 
       </div>
     );

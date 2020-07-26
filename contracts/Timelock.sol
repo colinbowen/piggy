@@ -17,7 +17,7 @@ contract Timelock {
     constructor(address _aggregator) public {
         priceFeed = AggregatorInterface(_aggregator);
         owner = msg.sender;
-        locked = false;
+        locked = true;
     }
 
     function lock(uint256 _releaseTime) public {
@@ -42,7 +42,9 @@ contract Timelock {
     }
 
     function lockStatus() public view returns (bool) {
-        return locked;
+        if(locked) {
+            return true;
+        } else return false;
     }
 
     function getReleaseTime() public view returns (uint256) {
