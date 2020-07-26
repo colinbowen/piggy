@@ -18,14 +18,18 @@ contract Timelock {
         owner = msg.sender;
     }
 
-    function lock(address payable _beneficiary, uint256 _releaseTime) public payable {
+    function lock(uint256 _releaseTime) public {
         require(
             _releaseTime > block.timestamp,
             "Release time must be set after current block timestamp."
         );
-        beneficiary = _beneficiary;
+        require(address(this).balance > 0, "Must have a balance");
         releaseTime = _releaseTime;
+    }
 
+    function deposit() external payable {
+        // beneficiary = _beneficiary;
+        // beneficiary = msg.sender;
     }
 
     function release() public {
@@ -47,7 +51,7 @@ contract Timelock {
         return priceFeed.latestTimestamp();
     }
 
-    function balanceOfContract() public view returns (uint256) {
+    function balance() public view returns (uint256) {
         return address(this).balance;
     }
 }

@@ -26,12 +26,6 @@ export default class Home extends Component {
                     Chainlink Price Feeds are the quickest way to connect your smart contracts to the real-world market prices of assets. They enable smart contracts to retrieve the latest price of an asset in a single call.
                 </p>
             </>
-
-            <br></br>
-
-            <div>The stored value is: {this.props.storageValue}</div>
-            <div>Current ETH Reference Price: {this.props.storageValue}</div>
-            <div>ETH Price when saving started: {this.props.storageValue}</div>
         </>
         );
     }
