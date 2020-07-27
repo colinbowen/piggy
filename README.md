@@ -3,6 +3,7 @@
 a mutual worldwide savings account that can be timelocked to help future you for good causes.
 
 # video:
+https://youtu.be/_I_TyJ0vtSc
 
 # advantages:
 - Chainlink price reference contracts allow for the balance of the current piggybank to be displayed at the true price.
@@ -18,7 +19,7 @@ a mutual worldwide savings account that can be timelocked to help future you for
 - Social community building through sharing
 - Fix bugs
   
-  
+
 # deployed dapp
 - The smart contract is currently deployed to the Ropsten network.
 - The application is hosted here:
