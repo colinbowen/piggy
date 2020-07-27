@@ -12,6 +12,13 @@ module.exports = {
   networks: {
     develop: {
       port: 8545
-    }
+    },
+    ropsten: {
+      provider: function() {
+        return new HDWalletProvider(mnemonic, "https://ropsten.infura.io/v3/b674027123a048879833476945bcd4a5");
+      },
+      network_id: '3',
+      from: '0x96e15945Eff585e9Fa3c9eCC9418c624AEd18EcE',
+    },
   },
 };

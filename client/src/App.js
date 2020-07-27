@@ -49,6 +49,8 @@ class App extends Component {
 
     this.getBalance()
     this.getLockStatus();
+    this.getReleaseTime();
+    this.updatePrice();
   };
 
   getBalance = async () => {
@@ -101,7 +103,7 @@ class App extends Component {
     const send = await contract.methods.deposit().send({
       from: accounts[0],
       to: address,
-      value: web3.utils.toWei('1', "ether"),
+      value: 1000000000000000,
       gas: 470000,
     })
 
@@ -116,6 +118,8 @@ class App extends Component {
     const result = await contract.methods.lockStatus().call();
 
     console.log(result)
+    this.setState({locked: result})
+
 
   }
 
@@ -125,6 +129,8 @@ class App extends Component {
     const result = await contract.methods.getReleaseTime().call();
 
     console.log(result)
+    this.setState({releaseTime: result})
+
 
   }
 
@@ -134,10 +140,11 @@ class App extends Component {
 
     const latestPrice = await contract.methods.getLatestPrice().call();
     console.log(latestPrice);
+    this.setState({latestPrice: latestPrice})
 
     const latestPriceTimestamp = await contract.methods.getLatestPriceTimestamp().call();
     console.log(latestPriceTimestamp);
-
+    this.setState({latestPriceTimestamp: latestPriceTimestamp})
   }
 
   runExample = async () => {
@@ -159,7 +166,7 @@ class App extends Component {
         <br></br>
         <br></br>
 
-        <p>Current ETH Reference Price: {this.state.currentPrice}</p>
+        <p>Current ETH Reference Price: {this.state.latestPrice}</p>
         <p>Total ETH Stored: {this.state.balance}</p>
         {this.state.locked ? <p>Locked Until: {this.state.releaseTime}</p> : <p>Piggy Bank is not locked</p>}
 
@@ -167,7 +174,7 @@ class App extends Component {
         <br></br>
 
         <Container>
-          <Button onClick={this.deposit} variant="primary" size="lg" block>Send 1 Ether to Piggybank</Button>
+          <Button onClick={this.deposit} variant="primary" size="lg" block>Send 0.001 Ether to Piggybank</Button>
           <Button onClick={this.updatePrice} variant="info" size="lg" block>Get Latest Ether Price</Button>
           <br></br>
           {this.state.locked ? <p>Locked Until: {this.state.releaseTime}</p>
