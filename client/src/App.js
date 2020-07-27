@@ -140,7 +140,7 @@ class App extends Component {
 
     const latestPrice = await contract.methods.getLatestPrice().call();
     console.log(latestPrice);
-    this.setState({latestPrice: latestPrice})
+    this.setState({latestPrice: latestPrice/100000000})
 
     const latestPriceTimestamp = await contract.methods.getLatestPriceTimestamp().call();
     console.log(latestPriceTimestamp);
@@ -166,7 +166,7 @@ class App extends Component {
         <br></br>
         <br></br>
 
-        <p>Current ETH Reference Price: {this.state.latestPrice}</p>
+        <p>Current ETH Reference Price: ${this.state.latestPrice}</p>
         <p>Total ETH Stored: {this.state.balance}</p>
         {this.state.locked ? <p>Locked Until: {this.state.releaseTime}</p> : <p>Piggy Bank is not locked</p>}
 
