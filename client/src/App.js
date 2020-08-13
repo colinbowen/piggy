@@ -177,7 +177,7 @@ class App extends Component {
           <Button onClick={this.deposit} variant="primary" size="lg" block>Send 0.001 Ether to Piggybank</Button>
           <Button onClick={this.updatePrice} variant="info" size="lg" block>Get Latest Ether Price</Button>
           <br></br>
-          {this.state.locked ? <p>Locked Until: {this.state.releaseTime}</p>
+          {this.state.locked ? <p>Piggy is locked!</p>
             : <>
               <ButtonGroup>
                 <Button onClick={this.lockContractDay} variant="secondary" size="lg">Lock for 1 day</Button>
