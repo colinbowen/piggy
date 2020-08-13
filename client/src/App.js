@@ -168,7 +168,7 @@ class App extends Component {
 
         <p>Current ETH Reference Price: ${this.state.latestPrice}</p>
         <p>Total ETH Stored: {this.state.balance}</p>
-        {this.state.locked ? <p>Locked Until: {this.state.releaseTime}</p> : <p>Piggy Bank is not locked</p>}
+        {this.state.locked ? <p>Piggy is locked!</p> : <p>Piggy Bank is not locked</p>}
 
         <br></br>
         <br></br>
